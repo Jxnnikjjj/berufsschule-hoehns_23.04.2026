@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Klausur-Lernzettel – Höhns</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f0f2f5;
+      color: #1a1a1a;
+      padding: 1.5rem;
+    }
+
+    /* ── HEADER ── */
+    .page-header {
+      max-width: 1100px;
+      margin: 0 auto 2rem;
+      background: linear-gradient(135deg, #1a3a5c 0%, #2563eb 100%);
+      color: white;
+      border-radius: 12px;
+      padding: 1.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .page-header h1 { font-size: 1.6rem; }
+    .page-header p  { font-size: 0.85rem; opacity: 0.8; margin-top: 0.3rem; }
+
+    .klausur-badge {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    .klausur-badge strong { font-size: 1.2rem; display: block; }
+
+    /* ── TOC ── */
+    .toc {
+      max-width: 1100px;
+      margin: 0 auto 2rem;
+      background: white;
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+    }
+
+    .toc h2 { font-size: 0.95rem; color: #555; margin-bottom: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+
+    .toc-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .toc-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #f4f6f9;
+      border-radius: 6px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.88rem;
+      text-decoration: none;
+      color: #333;
+      border: 1px solid #e5e7eb;
+      transition: background 0.15s;
+    }
+
+    .toc-item:hover { background: #e0e7f0; }
+    .toc-item .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dot-blau   { background: #2563eb; }
+    .dot-gruen  { background: #16a34a; }
+    .dot-lila   { background: #7c3aed; }
+
+    /* ── THEMA BLOCK ── */
+    .thema {
+      max-width: 1100px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .thema-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 3px solid currentColor;
+    }
+
+    .thema-nr {
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .thema-header h2 { font-size: 1.2rem; }
+    .thema-header .gesetz { font-size: 0.8rem; font-weight: 400; opacity: 0.7; margin-left: 0.5rem; }
+
+    .color-blau  { color: #1d4ed8; }
+    .color-gruen { color: #15803d; }
+    .color-lila  { color: #6d28d9; }
+
+    .bg-blau  { background: #1d4ed8; }
+    .bg-gruen { background: #15803d; }
+    .bg-lila  { background: #6d28d9; }
+
+    /* ── KARTEN GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.2rem 1.4rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+      border-top: 3px solid #ccc;
+    }
+
+    .card.full { grid-column: 1 / -1; }
+
+    .card h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .pill {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 20px;
+      color: white;
+      letter-spacing: 0.03em;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      padding: 0.28rem 0;
+      padding-left: 1.1rem;
+      position: relative;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    ul li::before { content: '•'; position: absolute; left: 0; color: #aaa; }
+    ul li b { color: #111; }
+
+    ol { padding-left: 1.3rem; font-size: 0.9rem; line-height: 1.8; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.87rem;
+      margin-top: 0.6rem;
+    }
+
+    th {
+      padding: 0.55rem 0.8rem;
+      text-align: left;
+      color: white;
+    }
+
+    td {
+      padding: 0.5rem 0.8rem;
+      border-bottom: 1px solid #e5e7eb;
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td { background: #f9fafb; }
+    tr:last-child td { border-bottom: none; }
+
+    /* Farben für Cards */
+    .c-blau1  { border-top-color: #2563eb; }
+    .c-blau2  { border-top-color: #60a5fa; }
+    .c-orange { border-top-color: #f59e0b; }
+    .c-rot    { border-top-color: #dc2626; }
+    .c-grau   { border-top-color: #6b7280; }
+    .c-gruen  { border-top-color: #16a34a; }
+    .c-lila   { border-top-color: #7c3aed; }
+    .c-lila2  { border-top-color: #a78bfa; }
+
+    .th-blau  { background: #1d4ed8; }
+    .th-gruen { background: #15803d; }
+    .th-lila  { background: #6d28d9; }
+    .th-grau  { background: #374151; }
+    .th-orange{ background: #d97706; }
+    .th-rot   { background: #b91c1c; }
+
+    /* Tags */
+    .tag-gruen { color: #15803d; font-weight: 700; }
+    .tag-orange{ color: #b45309; font-weight: 700; }
+    .tag-rot   { color: #b91c1c; font-weight: 700; }
+    .tag-blau  { color: #1d4ed8; font-weight: 700; }
+
+    /* Merke-Box */
+    .merke {
+      margin-top: 0.9rem;
+      background: #fef9c3;
+      border-left: 4px solid #f59e0b;
+      border-radius: 0 6px 6px 0;
+      padding: 0.7rem 1rem;
+      font-size: 0.87rem;
+      color: #444;
+    }
+
+    .merke strong { color: #92400e; }
+
+    /* Formel-Box */
+    .formel {
+      margin-top: 0.8rem;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 6px;
+      padding: 0.7rem 1rem;
+      font-size: 0.88rem;
+      font-family: 'Courier New', monospace;
+      color: #1e40af;
+    }
+
+    /* Trennlinie zwischen Themen */
+    .divider {
+      max-width: 1100px;
+      margin: 0.5rem auto 2rem;
+      border: none;
+      border-top: 2px dashed #cbd5e1;
+    }
+
+    .stand {
+      max-width: 1100px;
+      margin: 2rem auto 0;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- HEADER -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="page-header">
+  <div>
+    <h1>Klausur-Lernzettel</h1>
+    <p>Lehrer: Höhns &nbsp;|&nbsp; Immobilienwirtschaft &nbsp;|&nbsp; Lernfelder 4/5</p>
+    <p style="margin-top:0.5rem; font-size:0.8rem; opacity:0.65;">Stand: 10.04.2026 &nbsp;|&nbsp; Automatisch aktualisiert</p>
+  </div>
+  <div class="klausur-badge">
+    <strong>23. April 2026</strong>
+    Klausurtermin
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- INHALTSVERZEICHNIS -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="toc">
+  <h2>Themen</h2>
+  <div class="toc-grid">
+    <a href="#thema1" class="toc-item"><span class="dot dot-blau"></span>1 – Wohnflächenverordnung</a>
+    <a href="#thema2" class="toc-item"><span class="dot dot-gruen"></span>2 – Mietpreisrecht</a>
+    <a href="#thema3" class="toc-item"><span class="dot dot-lila"></span>3 – Mietstruktur &amp; Betriebskosten</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- THEMA 1: WOHNFLÄCHENVERORDNUNG -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="thema" id="thema1">
+  <div class="thema-header color-blau">
+    <div class="thema-nr bg-blau">1</div>
+    <h2>Wohnflächenverordnung (WoFlV) <span class="gesetz">| WoFlV, §§ 536, 558 BGB</span></h2>
+  </div>
+
+  <div class="grid">
+
+    <!-- Grundlagen -->
+    <div class="card c-blau1">
+      <h3><span class="pill bg-blau">Grundlagen</span> Was ist Wohnfläche?</h3>
+      <ul>
+        <li>Gesamtfläche aller <b>Räume einer Wohnung</b>, die ausschließlich zu dieser Wohnung gehören</li>
+        <li>Rechtsgrundlage: <b>Wohnflächenverordnung (WoFlV)</b> vom 25.11.2003</li>
+        <li>Maßgeblich bei: Mietverträgen, Mieterhöhungen, Betriebskostenabrechnung, Mietspiegel</li>
+        <li>Gemessen wird die Grundfläche <b>licht</b> (zwischen fertig verputzten Wänden)</li>
+      </ul>
+    </div>
+
+    <!-- Anrechnung -->
+    <div class="card c-blau1">
+      <h3><span class="pill bg-blau">Anrechnung</span> Wie werden Flächen angerechnet?</h3>
+      <table>
+        <thead><tr><th class="th-blau">Bereich</th><th class="th-blau">Anrechnung</th></tr></thead>
+        <tbody>
+          <tr><td>Vollwertige Wohnräume</td><td class="tag-gruen">100 %</td></tr>
+          <tr><td>Balkone, Loggien, Dachgärten, Terrassen</td><td class="tag-orange">25 % (max. 50 % mögl.)</td></tr>
+          <tr><td>Dachschrägen &lt; 1 m Höhe</td><td class="tag-rot">0 %</td></tr>
+          <tr><td>Dachschrägen 1–2 m Höhe</td><td class="tag-orange">50 %</td></tr>
+          <tr><td>Dachschrägen &gt; 2 m Höhe</td><td class="tag-gruen">100 %</td></tr>
+          <tr><td>Unbeheizte Wintergärten / Schwimmbäder</td><td class="tag-orange">50 %</td></tr>
+          <tr><td>Beheizte Wintergärten</td><td class="tag-gruen">100 %</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Nicht zur Wohnfläche -->
+    <div class="card c-blau2">
+      <h3><span class="pill" style="background:#2563eb">Ausschluss</span> Nicht zur Wohnfläche zählen</h3>
+      <ul>
+        <li>Kellerräume, Waschküchen, Heizungsräume</li>
+        <li>Trockenböden, Speicher (nicht ausgebaut)</li>
+        <li>Garagen, Abstellräume außerhalb der Wohnung</li>
+        <li>Geschäftsräume</li>
+        <li>Flächen unter Treppen, Türdurchgänge</li>
+      </ul>
+      <div class="merke">
+        <strong>Merke:</strong> Gemeinschaftsflächen (Treppenhaus, Hausflur) gehören grundsätzlich <em>nicht</em> zur Wohnfläche der einzelnen Wohnung.
+      </div>
+    </div>
+
+    <!-- Abweichungen & Mietminderung -->
+    <div class="card c-grau full">
+      <h3><span class="pill th-grau">Abweichung</span> Falsche Wohnflächenangabe – Rechtsfolgen</h3>
+      <table>
+        <thead><tr>
+          <th class="th-grau">Abweichung</th>
+          <th class="th-grau">Rechtsfolge</th>
+          <th class="th-grau">Grundlage</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Bis 10 %</b> weniger als vereinbart</td>
+            <td>Kein Mangel – Mieter hat keinen Anspruch auf Mietminderung</td>
+            <td>Toleranzgrenze (BGH-Rechtsprechung)</td>
+          </tr>
+          <tr>
+            <td><b>Mehr als 10 %</b> weniger als vereinbart</td>
+            <td><span class="tag-rot">Mietmangel!</span> Mieter kann Miete anteilig mindern + Rückforderung überzahlter Beträge (3 Jahre rückwirkend)</td>
+            <td>§ 536 BGB</td>
+          </tr>
+          <tr>
+            <td>Fläche <b>größer</b> als vereinbart</td>
+            <td>Vermieter kann Mieterhöhung auf Basis tatsächlicher Fläche verlangen</td>
+            <td>§ 558 BGB</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="merke" style="margin-top:0.8rem;">
+        <strong>Merke:</strong> Die 10 %-Toleranzgrenze gilt nur für die <em>im Mietvertrag vereinbarte</em> Wohnfläche. Maßgeblicher Zeitpunkt ist der Vertragsschluss, nicht der Ist-Zustand.
+      </div>
+    </div>
+
+    <!-- Berechnung Beispiel -->
+    <div class="card c-blau2">
+      <h3><span class="pill" style="background:#2563eb">Rechnung</span> Beispiel: Wohnflächenberechnung</h3>
+      <table>
+        <thead><tr><th class="th-blau">Raum</th><th class="th-blau">Grundfläche</th><th class="th-blau">Faktor</th><th class="th-blau">Wohnfläche</th></tr></thead>
+        <tbody>
+          <tr><td>Wohnzimmer</td><td>25,00 m²</td><td>100 %</td><td>25,00 m²</td></tr>
+          <tr><td>Schlafzimmer</td><td>15,00 m²</td><td>100 %</td><td>15,00 m²</td></tr>
+          <tr><td>Küche</td><td>10,00 m²</td><td>100 %</td><td>10,00 m²</td></tr>
+          <tr><td>Bad</td><td>6,00 m²</td><td>100 %</td><td>6,00 m²</td></tr>
+          <tr><td>Balkon</td><td>8,00 m²</td><td>25 %</td><td>2,00 m²</td></tr>
+          <tr><td>Dachschräge (1–2 m)</td><td>4,00 m²</td><td>50 %</td><td>2,00 m²</td></tr>
+          <tr style="background:#eff6ff;"><td><b>Gesamt</b></td><td>68,00 m²</td><td></td><td><b>60,00 m²</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- THEMA 2: MIETPREISRECHT -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="thema" id="thema2">
+  <div class="thema-header color-gruen">
+    <div class="thema-nr bg-gruen">2</div>
+    <h2>Mietpreisrecht <span class="gesetz">| §556d BGB, §5 WiStG, §291 StGB</span></h2>
+  </div>
+
+  <div class="grid">
+
+    <!-- Übersichtstabelle -->
+    <div class="card c-gruen full">
+      <h3><span class="pill bg-gruen">Übersicht</span> Alle drei Regelungen im Vergleich</h3>
+      <table>
+        <thead><tr>
+          <th class="th-gruen">Regelung</th>
+          <th class="th-gruen">Rechtsgrundlage</th>
+          <th class="th-gruen">Gilt wo?</th>
+          <th class="th-gruen">Grenze</th>
+          <th class="th-gruen">Sanktion</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Mietpreisbremse</b></td>
+            <td>§ 556d BGB</td>
+            <td>Nur in ausgewiesenen Gebieten (Landesverordnung)</td>
+            <td class="tag-gruen">OVM + 10 %</td>
+            <td>Rückforderungsanspruch</td>
+          </tr>
+          <tr>
+            <td><b>Mietpreisüberhöhung</b></td>
+            <td>§ 5 WiStG</td>
+            <td>Überall bei Wohnungsmangel + bewusster Ausnutzung</td>
+            <td class="tag-orange">OVM + 20 %</td>
+            <td>Ordnungswidrigkeit, Bußgeld bis 50.000 €</td>
+          </tr>
+          <tr>
+            <td><b>Mietwucher</b></td>
+            <td>§ 291 StGB / § 138 BGB</td>
+            <td>Bundesweit, immer</td>
+            <td class="tag-rot">OVM + 50 %</td>
+            <td>Straftat, bis 3 Jahre Freiheitsstrafe, Vertrag nichtig (§ 138 BGB)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mietpreisbremse -->
+    <div class="card c-gruen">
+      <h3><span class="pill bg-gruen">§ 556d BGB</span> Mietpreisbremse</h3>
+      <ul>
+        <li>Nur in Gebieten mit <b>angespanntem Wohnungsmarkt</b> (per Landesverordnung)</li>
+        <li>Hamburg: Mietpreisbremse aktiv seit <b>2015</b></li>
+        <li>Gilt <b>nicht</b> in Sachsen und anderen Bundesländern ohne Verordnung</li>
+        <li>Max. Miete = <b>OVM + 10 %</b> bei Neuvermietung</li>
+      </ul>
+      <br>
+      <b style="font-size:0.87rem;">Ausnahmen – MPB gilt nicht:</b>
+      <ul style="margin-top:0.3rem;">
+        <li>Neubau: Erstbezug <b>nach 01.10.2014</b> (§ 556f BGB) – auch bei Folgevermietung</li>
+        <li>Umfassende Modernisierung (§ 556f BGB)</li>
+        <li>Vormiete war bereits höher als OVM + 10 % (§ 556e BGB – Bestandsschutz)</li>
+      </ul>
+    </div>
+
+    <!-- WiStG -->
+    <div class="card c-orange">
+      <h3><span class="pill th-orange">§ 5 WiStG</span> Wirtschaftsstrafgesetz</h3>
+      <b style="font-size:0.87rem;">Beide Voraussetzungen müssen gleichzeitig vorliegen:</b>
+      <ol style="margin-top:0.4rem; margin-bottom:0.7rem;">
+        <li><b>Wohnungsmangel</b> in der Region (Leerstand &lt; ca. 3 %)</li>
+        <li>Vermieter <b>nutzt den Mangel bewusst aus</b></li>
+      </ol>
+      <ul>
+        <li>Gilt auch bei Neubau / umfassender Modernisierung</li>
+        <li>Gilt auch ohne Mietpreisbremse</li>
+        <li>Bußgeld bis <b>50.000 €</b> (Ordnungswidrigkeit)</li>
+      </ul>
+    </div>
+
+    <!-- Mietwucher -->
+    <div class="card c-rot">
+      <h3><span class="pill th-rot">§ 291 StGB</span> Mietwucher</h3>
+      <b style="font-size:0.87rem;">Voraussetzungen:</b>
+      <ol style="margin-top:0.4rem; margin-bottom:0.7rem;">
+        <li>Miete überschreitet ortsüblichen Wert um <b>mehr als 50 %</b></li>
+        <li>Ausnutzung einer <b>Zwangslage</b>, Unerfahrenheit, Mangel an Urteilsvermögen</li>
+      </ol>
+      <ul>
+        <li>Gilt <b>immer</b> – bundesweit, unabhängig von MPB und Wohnungsmangel</li>
+        <li>Mietvertrag nach <b>§ 138 BGB nichtig</b> (sittenwidrig)</li>
+        <li>Freiheitsstrafe bis <b>3 Jahre</b> oder Geldstrafe</li>
+      </ul>
+    </div>
+
+    <!-- Rechenbeispiel -->
+    <div class="card c-gruen">
+      <h3><span class="pill bg-gruen">Rechnung</span> Rechenbeispiel (OVM = 17,18 €/m²)</h3>
+      <table>
+        <thead><tr><th class="th-gruen">Regelung</th><th class="th-gruen">Berechnung</th><th class="th-gruen">Grenze</th></tr></thead>
+        <tbody>
+          <tr><td>MPB</td><td>17,18 × 1,10</td><td class="tag-gruen">18,90 €/m²</td></tr>
+          <tr><td>WiStG</td><td>17,18 × 1,20</td><td class="tag-orange">20,62 €/m²</td></tr>
+          <tr><td>Wucher</td><td>17,18 × 1,50</td><td class="tag-rot">25,77 €/m²</td></tr>
+        </tbody>
+      </table>
+      <div class="formel">max. NKM (MPB) = OVM × 1,10</div>
+    </div>
+
+    <!-- Bestandsschutz -->
+    <div class="card c-orange">
+      <h3><span class="pill th-orange">§ 556e BGB</span> Bestandsschutz (Vormiete-Ausnahme)</h3>
+      <ul>
+        <li>Wenn Vormiete <b>höher</b> als MPB-Grenze (OVM + 10 %) → Vermieter darf Vormiete nehmen</li>
+        <li>Vormiete muss mindestens <b>1 Jahr</b> gezahlt worden sein</li>
+        <li>Vermieter muss <b>unaufgefordert, vor Vertragsabschluss, in Textform</b> informieren</li>
+        <li>Verstößt er → Bestandsschutz entfällt, max. nur OVM + 10 %</li>
+      </ul>
+      <div class="merke">
+        <strong>Merke:</strong> Vormiete &gt; OVM + 10 % → darf Vormiete verlangen. Vormiete &lt; OVM + 10 % → Ausnahme greift <em>nicht</em>.
+      </div>
+    </div>
+
+    <!-- Sonderregelungen -->
+    <div class="card c-gruen">
+      <h3><span class="pill bg-gruen">Sonder&shy;regeln</span> Möblierung &amp; Modernisierung</h3>
+      <b style="font-size:0.87rem;">Möblierungszuschlag:</b>
+      <div class="formel">(OVM + Möblierungszuschlag) × 1,10 = max. NKM</div>
+      <ul style="margin-top:0.5rem;">
+        <li>Zuschlag = Zeitwert der Möbel ÷ Laufzeit</li>
+        <li>Möblierungszuschlag wird <b>vor</b> dem 10 %-Aufschlag addiert</li>
+      </ul>
+      <br>
+      <b style="font-size:0.87rem;">Modernisierungszuschlag (einfache Modernisierung):</b>
+      <div class="formel">Kosten × 8 % ÷ 12 ÷ m² = Zuschlag/m²</div>
+      <ul style="margin-top:0.5rem;">
+        <li>Nur wenn Modernisierung innerhalb der letzten <b>3 Jahre</b> vor Mietvertragsabschluss</li>
+        <li>Zuschlag wird auf MPB-Grenze (OVM + 10 %) addiert</li>
+      </ul>
+    </div>
+
+    <!-- Staffelmiete -->
+    <div class="card c-grau">
+      <h3><span class="pill th-grau">Staffelmiete</span> MPB bei Staffelmietverträgen</h3>
+      <ul>
+        <li>MPB gilt für <b>jede Staffel</b> – Prüfung zum Zeitpunkt der Fälligkeit</li>
+        <li>Jede Staffel darf OVM + 10 % nicht überschreiten</li>
+        <li>Gilt nur, wenn Staffelvertrag <b>während der Gültigkeit</b> der MPB-Verordnung abgeschlossen wurde</li>
+        <li>Hamburg: MPB gilt ab <b>01.07.2015</b> – Verträge davor: MPB gilt nicht</li>
+      </ul>
+    </div>
+
+    <!-- Rüge & Rückforderung -->
+    <div class="card c-rot full">
+      <h3><span class="pill th-rot">§ 556g BGB</span> Rüge &amp; Rückforderungsanspruch</h3>
+      <table>
+        <thead><tr>
+          <th class="th-rot">Mietvertrag</th>
+          <th class="th-rot">Rüge innerhalb 30 Monate</th>
+          <th class="th-rot">Rüge nach 30 Monaten</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td>Vor 01.04.2020</td>
+            <td class="tag-orange">Nur ab Rügedatum (Zukunft)</td>
+            <td class="tag-orange">Nur ab Rügedatum (Zukunft)</td>
+          </tr>
+          <tr>
+            <td>Ab 01.04.2020</td>
+            <td class="tag-gruen">Vollständig seit Mietbeginn</td>
+            <td class="tag-orange">Max. 30 Monate rückwirkend</td>
+          </tr>
+        </tbody>
+      </table>
+      <ul style="margin-top:0.8rem;">
+        <li>Einfache <b>Rüge</b> reicht – kein Beweis nötig, nur Mitteilung</li>
+        <li>Ab dem <b>darauffolgenden Monat</b> nach der Rüge: nur noch zulässige Miete</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- THEMA 3: MIETSTRUKTUR & BETRIEBSKOSTEN -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="thema" id="thema3">
+  <div class="thema-header color-lila">
+    <div class="thema-nr bg-lila">3</div>
+    <h2>Mietstruktur &amp; Betriebskosten <span class="gesetz">| §§ 556–560 BGB, BetrKV, HeizkostenV</span></h2>
+  </div>
+
+  <div class="grid">
+
+    <!-- Mietarten -->
+    <div class="card c-lila full">
+      <h3><span class="pill bg-lila">Mietarten</span> Die vier Mietformen im Vergleich</h3>
+      <table>
+        <thead><tr>
+          <th class="th-lila">Mietart</th>
+          <th class="th-lila">Betriebskosten</th>
+          <th class="th-lila">Heizkosten</th>
+          <th class="th-lila">Abrechnung</th>
+          <th class="th-lila">Gesamtzahlung (Bsp.)</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Nettokaltmiete (NKM)</b></td>
+            <td>Separat (Vorauszahlung/Pauschale)</td>
+            <td>Separat (verbrauchsabhängig)</td>
+            <td>Jährliche Abrechnung erforderlich</td>
+            <td>820 + 100 + 50 = <b>970 €</b></td>
+          </tr>
+          <tr>
+            <td><b>Teilinklusivmiete</b></td>
+            <td>Teilweise enthalten, teilweise separat</td>
+            <td>Separat</td>
+            <td>Für inkludierte BK keine Abrechnung</td>
+            <td>variiert</td>
+          </tr>
+          <tr>
+            <td><b>Bruttokaltmiete</b></td>
+            <td>Vollständig enthalten</td>
+            <td>Separat (verbrauchsabhängig)</td>
+            <td>Keine BK-Abrechnung; HK separat</td>
+            <td>920 + 50 = <b>970 €</b></td>
+          </tr>
+          <tr>
+            <td><b>Bruttowarmmiete</b></td>
+            <td>Vollständig enthalten</td>
+            <td>Enthalten</td>
+            <td>Keine Abrechnung nötig</td>
+            <td><b>970 €</b> (Bsp.)</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="merke" style="margin-top:0.9rem;">
+        <strong>Merke:</strong> Die <em>monatliche Gesamtzahlung</em> ist bei allen Mietarten gleich – nur die <em>Struktur</em> und Abrechnung unterscheidet sich. Die Bruttowarmmiete ist heute kaum noch zulässig, da die <b>Heizkostenverordnung</b> eine verbrauchsabhängige Abrechnung vorschreibt.
+      </div>
+    </div>
+
+    <!-- Betriebskosten BetrKV -->
+    <div class="card c-lila">
+      <h3><span class="pill bg-lila">BetrKV § 2</span> Umlagefähige Betriebskosten</h3>
+      <ul>
+        <li>17 Kategorien laut <b>§ 2 BetrKV</b>, z.B.:</li>
+        <li>Nr. 1 – Grundsteuer</li>
+        <li>Nr. 2 – Wasserversorgung</li>
+        <li>Nr. 3 – Entwässerung</li>
+        <li>Nr. 4 – Heizkosten (HeizkostenV)</li>
+        <li>Nr. 5 – Warmwasserversorgung</li>
+        <li>Nr. 9 – Aufzug</li>
+        <li>Nr. 10 – Hausreinigung / Ungezieferbekämpfung</li>
+        <li>Nr. 14 – Hausmeister (anteilig, s. unten)</li>
+        <li>Nr. 16 – Versicherungen (Gebäude, Haftpflicht)</li>
+        <li>Nr. 17 – <b>Sonstige Betriebskosten</b> (z.B. Dachrinnenreinigung, Rauchmelderwartung)</li>
+      </ul>
+      <div class="merke">
+        <strong>Nr. 17 Sonstige BK:</strong> Müssen <em>konkret</em> und <em>ausdrücklich</em> im Mietvertrag benannt werden (z.B. „Dachrinnenreinigung") – pauschale Erwähnung reicht nicht.
+      </div>
+    </div>
+
+    <!-- Hausmeisterkosten -->
+    <div class="card c-lila2">
+      <h3><span class="pill" style="background:#7c3aed">Hausmeister</span> Umlagefähig vs. nicht umlagefähig</h3>
+      <table>
+        <thead><tr>
+          <th class="th-lila">Tätigkeit</th>
+          <th class="th-lila">Umlagefähig?</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td>Treppenhausreinigung, Grünpflege, Winterdienst, Hausordnung durchsetzen</td>
+            <td class="tag-gruen">Ja</td>
+          </tr>
+          <tr>
+            <td>Mieterverwaltung, Schönheitsreparaturen, Wohnungsübergaben, Schadensbeseitigung</td>
+            <td class="tag-rot">Nein</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="merke" style="margin-top:0.8rem;">
+        <strong>Problem:</strong> Hausmeister erledigt meist beide Tätigkeiten – Vermieter muss Gesamtlohn <em>anteilig aufteilen</em>. Nur der umlagefähige Anteil darf umgelegt werden. In der Praxis oft Streitpunkt.
+      </div>
+    </div>
+
+    <!-- Vorauszahlung vs. Pauschale -->
+    <div class="card c-lila2">
+      <h3><span class="pill" style="background:#7c3aed">§ 560 BGB</span> Vorauszahlung vs. Pauschale</h3>
+      <table>
+        <thead><tr>
+          <th class="th-lila"></th>
+          <th class="th-lila">Vorauszahlung</th>
+          <th class="th-lila">Pauschale</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Abrechnung</b></td>
+            <td>Jährlich (12 Monate nach Periodenende) <b>Pflicht</b></td>
+            <td>Keine Abrechnung – Pauschalzahlung abschließend</td>
+          </tr>
+          <tr>
+            <td><b>Kostenrisiko</b></td>
+            <td>Liegt beim <span class="tag-gruen">Mieter</span> (genaue Abrechnung)</td>
+            <td>Liegt beim <span class="tag-rot">Vermieter</span> (Mehrkosten trägt er)</td>
+          </tr>
+          <tr>
+            <td><b>Anpassung</b></td>
+            <td>Jederzeit auf angemessene Höhe (§ 560 BGB, Textform)</td>
+            <td>Nur wenn Mietvertrag dies ausdrücklich vorsieht</td>
+          </tr>
+          <tr>
+            <td><b>Wirtschaftlichkeit</b></td>
+            <td>Vermieter muss Grundsatz der Wirtschaftlichkeit beachten</td>
+            <td>Vermieter muss Grundsatz beachten</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Abrechnungsfrist -->
+    <div class="card c-rot full">
+      <h3><span class="pill th-rot">§ 556 Abs. 3 BGB</span> Abrechnungsfrist</h3>
+      <table>
+        <thead><tr>
+          <th class="th-rot">Position</th>
+          <th class="th-rot">Regelung</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Frist</b></td>
+            <td>Abrechnung muss dem Mieter spätestens <b>12 Monate nach Ende des Abrechnungszeitraums</b> zugegangen sein</td>
+          </tr>
+          <tr>
+            <td><b>Beispiel</b></td>
+            <td>Abrechnungszeitraum 01.07.2023–30.06.2024 → Abrechnung muss bis <b>30.06.2025</b> zugehen</td>
+          </tr>
+          <tr>
+            <td><b>Folge bei Versäumnis</b></td>
+            <td><span class="tag-rot">Vermieter verliert das Recht auf Nachforderungen</span> – auch wenn tatsächliche Kosten höher waren. Guthaben des Mieters bleibt bestehen.</td>
+          </tr>
+          <tr>
+            <td><b>Ausnahme</b></td>
+            <td>Verspätung nicht vom Vermieter zu vertreten (z.B. Unterlagen trotz rechtzeitiger Anforderung zu spät erhalten) → Nachreichen möglich</td>
+          </tr>
+          <tr>
+            <td><b>Einwendungsfrist Mieter</b></td>
+            <td>Mieter muss Einwände innerhalb von <b>12 Monaten nach Zugang</b> der Abrechnung erheben</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="formel">Ende Abrechnungszeitraum + 12 Monate = Fristablauf</div>
+    </div>
+
+    <!-- Heizkostenverordnung -->
+    <div class="card c-grau">
+      <h3><span class="pill th-grau">HeizkostenV</span> Heizkostenverordnung</h3>
+      <ul>
+        <li>Heiz- und Warmwasserkosten müssen <b>verbrauchsabhängig</b> abgerechnet werden</li>
+        <li>Mindestens <b>50 %</b> verbrauchsabhängig, max. 70 % (§ 7 HeizkostenV)</li>
+        <li>Rest nach Grundkosten (Fläche oder Kubikinhalt)</li>
+        <li>Deshalb: <b>Bruttowarmmiete heute nicht mehr zulässig</b> (keine pauschale Heizkosten-Einbeziehung)</li>
+      </ul>
+    </div>
+
+    <!-- Nicht umlagefähige Kosten -->
+    <div class="card c-grau">
+      <h3><span class="pill th-grau">Nicht umlagefähig</span> Diese Kosten trägt der Vermieter allein</h3>
+      <ul>
+        <li>Verwaltungskosten (Buchführung, Porto, Bürokosten)</li>
+        <li>Instandhaltungs- und Reparaturkosten</li>
+        <li>Kosten für Leerstand</li>
+        <li>Bankgebühren, Rechtsberatung</li>
+        <li>Einmalige Kosten (z.B. einmalige Reinigung)</li>
+      </ul>
+      <div class="merke">
+        <strong>Merke:</strong> Betriebskosten müssen <em>laufend</em> anfallen und durch den Gebrauch der Mietsache entstehen.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- STAND -->
+<p class="stand">
+  Lernzettel erstellt: 10.04.2026 &nbsp;|&nbsp; Klausur: 23.04.2026 &nbsp;|&nbsp; Automatisch aktualisiert durch Claude Code
+</p>
+
+<div style="max-width:1100px; margin: 1.5rem auto 2rem; background:#f8f8f8; border: 1px solid #ddd; border-radius: 8px; padding: 0.9rem 1.2rem; font-size: 0.78rem; color: #888; text-align: center;">
+  <strong style="color:#aaa;">Ohne Gewähr</strong> &nbsp;—&nbsp;
+  Alle Angaben in diesem Lernzettel wurden auf Basis von Unterrichtsmaterialien und allgemeinem Rechtswissen zusammengestellt und sind ohne Gewähr auf Vollständigkeit oder Richtigkeit. Dieser Lernzettel ersetzt nicht die Aussagen des Lehrers oder offizielle Lehrwerke. Maßgeblich sind stets die im Unterricht behandelten Inhalte.
+</div>
+
+</body>
+</html>
