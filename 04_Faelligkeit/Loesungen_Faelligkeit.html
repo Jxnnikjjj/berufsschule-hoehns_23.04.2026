@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lösungen – Fälligkeit der Miete & Verjährung</title>
+  <style>
+    :root {
+      --blue: #1e40af; --blue-light: #dbeafe; --blue-mid: #93c5fd;
+      --green: #166534; --green-light: #dcfce7; --green-mid: #86efac;
+      --purple: #581c87; --purple-light: #f3e8ff; --purple-mid: #c4b5fd;
+      --orange: #9a3412; --orange-light: #ffedd5; --orange-mid: #fdba74;
+      --gray: #374151; --gray-light: #f3f4f6; --gray-mid: #d1d5db;
+      --red: #991b1b; --red-light: #fee2e2;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f1f5f9; color: #1e293b; padding: 2rem 1rem; }
+
+    .page-header {
+      text-align: center; background: linear-gradient(135deg, var(--orange) 0%, #c2410c 100%);
+      color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem;
+    }
+    .page-header h1 { font-size: 1.8rem; font-weight: 700; }
+    .page-header .meta { margin-top: .5rem; opacity: .85; font-size: .95rem; }
+    .badge {
+      display: inline-block; background: rgba(255,255,255,.2);
+      border: 1px solid rgba(255,255,255,.4); border-radius: 20px;
+      padding: .2rem .8rem; font-size: .8rem; margin: .3rem .2rem; font-weight: 600;
+    }
+
+    .section { margin-bottom: 2.5rem; }
+    .section-header {
+      display: flex; align-items: center; gap: .8rem;
+      padding: .9rem 1.2rem; border-radius: 12px 12px 0 0; color: white; font-weight: 700; font-size: 1.05rem;
+    }
+    .section-header .num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(255,255,255,.25); display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; font-weight: 800; flex-shrink: 0;
+    }
+
+    .cards {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 1rem; padding: 1rem;
+      background: white; border-radius: 0 0 12px 12px; border: 1px solid #e2e8f0; border-top: none;
+    }
+    .card {
+      border-radius: 10px; padding: 1.2rem; border: 1px solid transparent;
+    }
+    .card.full { grid-column: 1 / -1; }
+    .card h3 { font-size: .95rem; font-weight: 700; margin-bottom: .7rem; }
+    .card p, .card li { font-size: .9rem; line-height: 1.6; }
+    .card ul, .card ol { padding-left: 1.2rem; }
+    .card li { margin-bottom: .25rem; }
+
+    .c-blue  { background: var(--blue-light);   border-color: var(--blue-mid);   }
+    .c-blue  h3 { color: var(--blue); }
+    .c-green { background: var(--green-light);  border-color: var(--green-mid);  }
+    .c-green h3 { color: var(--green); }
+    .c-purple{ background: var(--purple-light); border-color: var(--purple-mid); }
+    .c-purple h3 { color: var(--purple); }
+    .c-orange{ background: var(--orange-light); border-color: var(--orange-mid); }
+    .c-orange h3 { color: var(--orange); }
+    .c-gray  { background: var(--gray-light);   border-color: var(--gray-mid);   }
+    .c-gray  h3 { color: var(--gray); }
+    .c-red   { background: var(--red-light);    border-color: #f87171;           }
+    .c-red   h3 { color: var(--red); }
+
+    table { width: 100%; border-collapse: collapse; font-size: .87rem; }
+    th { background: rgba(0,0,0,.07); padding: .55rem .7rem; text-align: left; font-weight: 700; white-space: nowrap; border-bottom: 2px solid rgba(0,0,0,.1); }
+    td { padding: .5rem .7rem; border-bottom: 1px solid rgba(0,0,0,.06); vertical-align: top; }
+    td:first-child { min-width: 130px; font-weight: 600; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(0,0,0,.025); }
+
+    .merke {
+      background: #fef9c3; border-left: 4px solid #ca8a04;
+      padding: .7rem 1rem; border-radius: 0 8px 8px 0; margin-top: .8rem;
+      font-size: .88rem; font-weight: 600; color: #713f12;
+    }
+    .merke::before { content: "⚠ Merke: "; }
+
+    .answer-box {
+      background: #f0fdf4; border: 2px solid #22c55e;
+      border-radius: 8px; padding: .7rem 1rem; margin-top: .6rem; font-size: .9rem;
+    }
+    .answer-box strong { color: #166534; }
+
+    .verzug-box {
+      background: var(--red-light); border: 2px solid #f87171;
+      border-radius: 8px; padding: .6rem 1rem; margin-top: .5rem; font-size: .88rem; color: var(--red);
+    }
+
+    .sec-orange { background: linear-gradient(135deg, var(--orange), #c2410c); }
+    .sec-blue   { background: linear-gradient(135deg, var(--blue), #1d4ed8); }
+    .sec-green  { background: linear-gradient(135deg, var(--green), #15803d); }
+    .sec-purple { background: linear-gradient(135deg, var(--purple), #7e22ce); }
+
+    .disclaimer {
+      text-align: center; margin-top: 2rem; color: #64748b; font-size: .8rem;
+      padding: 1rem; background: white; border-radius: 10px; border: 1px solid #e2e8f0;
+    }
+
+    .paragraph-ref {
+      display: inline-block; background: var(--blue); color: white;
+      border-radius: 4px; padding: .1rem .4rem; font-size: .78rem; font-weight: 700; margin-right: .3rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Lösungen – Fälligkeit der Miete &amp; Verjährung</h1>
+  <div class="meta">
+    <span class="badge">Lernfeld 4/5</span>
+    <span class="badge">Lehrer: Höhns</span>
+    <span class="badge">IMK 26F1</span>
+    <span class="badge">Stand: 10.04.2026</span>
+  </div>
+  <div class="meta" style="margin-top:.5rem; font-size:.85rem; opacity:.75;">
+    Grundlage: AB Fälligkeit, ÜA Fälligkeit, § 556b BGB, Info-Text, Verjährungs-Präsentation
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ABSCHNITT 1 – AB Fälligkeit (Aufgabe 01)
+     ══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header sec-orange">
+    <div class="num">1</div>
+    AB – Fälligkeit der Miete (Schickschuld vs. Bringschuld)
+  </div>
+  <div class="cards">
+
+    <!-- Aufgabe 2: Vergleich der Alternativen -->
+    <div class="card c-orange full">
+      <h3>Aufgabe 2 – Unterschied der beiden Alternativen</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Merkmal</th>
+            <th>Alt. 1: Schickschuld (aktuell gültig)</th>
+            <th>Alt. 2: Bringschuld (vor BGH-Urteil 05.10.2016)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Wortlaut</td>
+            <td>„spätestens am dritten Werktag zu entrichten"</td>
+            <td>Zusatz: „es kommt auf den <em>Eingang</em> des Geldes an"</td>
+          </tr>
+          <tr>
+            <td>Was muss bis zum 3. Werktag erfolgen?</td>
+            <td>Abbuchung vom Konto des <strong>Mieters</strong> (Absendung)</td>
+            <td>Gutschrift auf dem Konto des <strong>Vermieters</strong> (Eingang)</td>
+          </tr>
+          <tr>
+            <td>Wer trägt das Überweisungsrisiko?</td>
+            <td><strong>Vermieter</strong> (trägt Verzögerungsrisiko der Bank)</td>
+            <td><strong>Mieter</strong> (musste früher überweisen, um pünktlich anzukommen)</td>
+          </tr>
+          <tr>
+            <td>Gerichtliche Grundlage</td>
+            <td>BGH-Urteil vom 05.10.2016 – Bringschuld-Klausel = unangemessene Benachteiligung des Mieters</td>
+            <td>Frühere Vertragsfreiheit – Abweichung vom Gesetz war erlaubt</td>
+          </tr>
+          <tr>
+            <td>Zahlungsverzug ab …</td>
+            <td>4. Werktag (wenn Abbuchung nicht erfolgt ist)</td>
+            <td>4. Werktag (wenn Eingang beim Vermieter nicht erfolgt ist)</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="merke">§ 556b Abs. 1 BGB: Die Miete ist zu Beginn, spätestens bis zum <strong>dritten Werktag</strong> der einzelnen Zeitabschnitte zu entrichten.</div>
+    </div>
+
+    <!-- Aufgabe 3: Zahlungseingang-Tabelle -->
+    <div class="card c-blue full">
+      <h3>Aufgabe 3 – Spätester Zahlungseingang beim Vermieter (Schuljahr 2025/26)</h3>
+      <p style="margin-bottom:.7rem; font-size:.85rem; color:#475569;">
+        Hinweis: Werktage = Mo–Fr (ohne Sonn-, Feiertage). <strong>Samstag zählt nach BGH-Rechtsprechung nicht</strong> für die Fristberechnung, da samstags keine Überweisungen bearbeitet werden.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Monat</th>
+            <th>1. des Monats</th>
+            <th>3. Werktag (= Fälligkeitstag)</th>
+            <th style="background:#dcfce7">Bringschuld: Eingang beim Vermieter spätestens</th>
+            <th style="background:#dbeafe">Schickschuld: Abbuchung beim Mieter spätestens / Eingang beim Vermieter ca.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Oktober 2025</td>
+            <td>Mi. 01.10.</td>
+            <td>
+              <strong>Mo. 06.10.2025</strong><br>
+              <span style="font-size:.8rem; color:#64748b;">3.10. = Feiertag (Tag der Dt. Einheit), 4.10. = Sa (BGH), 5.10. = So</span>
+            </td>
+            <td style="background:#dcfce7"><strong>Mo. 06.10.2025</strong></td>
+            <td style="background:#dbeafe">Abbuchung: <strong>Mo. 06.10.</strong><br>Eingang ca. Di. 07.10. – Do. 09.10.</td>
+          </tr>
+          <tr>
+            <td>November 2025</td>
+            <td>Sa. 01.11.</td>
+            <td>
+              <strong>Mi. 05.11.2025</strong><br>
+              <span style="font-size:.8rem; color:#64748b;">1.11. = Sa (BGH), 2.11. = So</span>
+            </td>
+            <td style="background:#dcfce7"><strong>Mi. 05.11.2025</strong></td>
+            <td style="background:#dbeafe">Abbuchung: <strong>Mi. 05.11.</strong><br>Eingang ca. Do. 06.11. – Mo. 10.11.</td>
+          </tr>
+          <tr>
+            <td>Dezember 2025</td>
+            <td>Mo. 01.12.</td>
+            <td>
+              <strong>Mi. 03.12.2025</strong><br>
+              <span style="font-size:.8rem; color:#64748b;">Keine Feiertage in den ersten 3 Tagen</span>
+            </td>
+            <td style="background:#dcfce7"><strong>Mi. 03.12.2025</strong></td>
+            <td style="background:#dbeafe">Abbuchung: <strong>Mi. 03.12.</strong><br>Eingang ca. Do. 04.12. – Mo. 08.12.</td>
+          </tr>
+          <tr>
+            <td>Januar 2026</td>
+            <td>Do. 01.01. (Neujahr)</td>
+            <td>
+              <strong>Di. 06.01.2026</strong><br>
+              <span style="font-size:.8rem; color:#64748b;">1.1. = Feiertag, 2.1. = Fr (1. WKT), 3.1. = Sa (BGH), 4.1. = So, 5.1. = Mo (2. WKT)</span>
+            </td>
+            <td style="background:#dcfce7"><strong>Di. 06.01.2026</strong></td>
+            <td style="background:#dbeafe">Abbuchung: <strong>Di. 06.01.</strong><br>Eingang ca. Mi. 07.01. – Fr. 09.01.</td>
+          </tr>
+          <tr>
+            <td>Februar 2026</td>
+            <td>So. 01.02.</td>
+            <td>
+              <strong>Mi. 04.02.2026</strong><br>
+              <span style="font-size:.8rem; color:#64748b;">1.2. = So, 2.2. = Mo (1. WKT), 3.2. = Di (2. WKT)</span>
+            </td>
+            <td style="background:#dcfce7"><strong>Mi. 04.02.2026</strong></td>
+            <td style="background:#dbeafe">Abbuchung: <strong>Mi. 04.02.</strong><br>Eingang ca. Do. 05.02. – Mo. 09.02.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Aufgabe 4: Zahlungsverzug Schickschuld -->
+    <div class="card c-red full">
+      <h3>Aufgabe 4 – Ab wann ist der Mieter bei der Schickschuld im Zahlungsverzug?</h3>
+      <p style="margin-bottom:.7rem; font-size:.88rem;">
+        Bei der <strong>Schickschuld</strong> gerät der Mieter ohne Mahnung in Verzug (<span class="paragraph-ref">§ 286 Abs. 2 Nr. 1 BGB</span>), wenn am Fälligkeitstag (3. Werktag) die Abbuchung <em>nicht</em> von seinem Konto erfolgt ist. Verzug beginnt ab dem <strong>Folgetag</strong> (= 4. Werktag).
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Monat</th>
+            <th>3. Werktag (Fälligkeitstag)</th>
+            <th>Zahlungsverzug ab (4. Werktag)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Oktober 2025</td>
+            <td>Mo. 06.10.2025</td>
+            <td><strong>Di. 07.10.2025</strong></td>
+          </tr>
+          <tr>
+            <td>November 2025</td>
+            <td>Mi. 05.11.2025</td>
+            <td><strong>Do. 06.11.2025</strong></td>
+          </tr>
+          <tr>
+            <td>Dezember 2025</td>
+            <td>Mi. 03.12.2025</td>
+            <td><strong>Do. 04.12.2025</strong></td>
+          </tr>
+          <tr>
+            <td>Januar 2026</td>
+            <td>Di. 06.01.2026</td>
+            <td><strong>Mi. 07.01.2026</strong></td>
+          </tr>
+          <tr>
+            <td>Februar 2026</td>
+            <td>Mi. 04.02.2026</td>
+            <td><strong>Do. 05.02.2026</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="merke">Kein Mahnbescheid nötig! Der Verzug tritt kraft Gesetzes ein, da die Fälligkeit durch den Kalender bestimmt ist.</div>
+    </div>
+
+    <!-- Aufgabe 5: Problem Schickschuld -->
+    <div class="card c-purple full">
+      <h3>Aufgabe 5 – Problem der Schickschuld aus Vermietersicht</h3>
+      <p><strong>Problem:</strong> Bei der Schickschuld kann der Vermieter am Fälligkeitstag (3. Werktag) <em>nicht sofort</em> erkennen, ob der Mieter pünktlich gezahlt hat.</p>
+      <ul style="margin-top:.7rem;">
+        <li>Der Mieter muss nur die Abbuchung von seinem Konto veranlassen – die Überweisung kann noch 1–3 Bankarbeitstage unterwegs sein.</li>
+        <li>Der Vermieter sieht den Zahlungseingang erst <strong>1–3 Tage später</strong> auf seinem Konto.</li>
+        <li>Erst dann kann er feststellen, ob tatsächlich Zahlungsverzug vorliegt.</li>
+      </ul>
+      <div style="margin-top:.8rem; padding:.7rem 1rem; background:#f3e8ff; border-radius:8px; border-left: 4px solid #a855f7; font-size:.88rem;">
+        <strong>Praktische Konsequenz:</strong> Der Vermieter kann eine außerordentliche Kündigung wegen Zahlungsverzugs (nach §§ 543, 569 BGB) erst später einleiten als bei der Bringschuld. Gerade bei knappen Fristen (z.B. zwei Monatsmieten rückständig) kann diese Verzögerung relevant sein.
+      </div>
+      <div class="merke">Bei der früheren Bringschuld konnte der Vermieter am 3. Werktag sofort prüfen, ob das Geld eingegangen ist – klare Rechtssicherheit. Die Schickschuld schafft eine Grauzone von mehreren Tagen.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ABSCHNITT 2 – ÜA Fälligkeit (Aufgabe 04)
+     ══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header sec-blue">
+    <div class="num">2</div>
+    ÜA – Übungsaufgabe: Fälligkeit (Mieterin Gertrud Müller, Buschkamp)
+  </div>
+  <div class="cards">
+
+    <div class="card c-blue full">
+      <h3>Sachverhalt</h3>
+      <p>
+        Mietvertrag: § 6 – <em>„Die Mietzahlung ist monatlich im Voraus, spätestens am dritten Werktag an den Vermieter zu entrichten."</em><br><br>
+        Werktage = Mo–Fr (ohne Sonn-/Feiertage). <strong>Samstag zählt nach BGH nicht</strong> für die Fristberechnung.<br>
+        Hamburger Feiertage: Neujahr, Karfreitag, Ostermontag, Tag der Arbeit (1.5.), Christi Himmelfahrt, Pfingstmontag, Tag der Dt. Einheit (3.10.), Reformationstag (31.10.), 1./2. Weihnachtstag.
+      </p>
+    </div>
+
+    <!-- Frage 1 -->
+    <div class="card c-blue">
+      <h3>Frage 1 – 3. Oktober fällt auf einen Freitag</h3>
+      <table>
+        <tbody>
+          <tr><td>Fr. 03.10.</td><td>Feiertag (Tag der Deutschen Einheit) → kein Werktag</td></tr>
+          <tr><td>Sa. 04.10.</td><td>BGH-Urteil: kein Werktag</td></tr>
+          <tr><td>So. 05.10.</td><td>Sonntag → kein Werktag</td></tr>
+          <tr><td>Mo. 06.10.</td><td>→ <strong>1. Werktag</strong></td></tr>
+          <tr><td>Di. 07.10.</td><td>→ <strong>2. Werktag</strong></td></tr>
+          <tr><td>Mi. 08.10.</td><td>→ <strong>3. Werktag ✓</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="answer-box"><strong>Antwort: Mittwoch, der 8. Oktober</strong></div>
+    </div>
+
+    <!-- Frage 2 -->
+    <div class="card c-blue">
+      <h3>Frage 2 – 1. Mai fällt auf einen Freitag</h3>
+      <table>
+        <tbody>
+          <tr><td>Fr. 01.05.</td><td>Feiertag (Tag der Arbeit) → kein Werktag</td></tr>
+          <tr><td>Sa. 02.05.</td><td>BGH-Urteil: kein Werktag</td></tr>
+          <tr><td>So. 03.05.</td><td>Sonntag → kein Werktag</td></tr>
+          <tr><td>Mo. 04.05.</td><td>→ <strong>1. Werktag</strong></td></tr>
+          <tr><td>Di. 05.05.</td><td>→ <strong>2. Werktag</strong></td></tr>
+          <tr><td>Mi. 06.05.</td><td>→ <strong>3. Werktag ✓</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="answer-box"><strong>Antwort: Mittwoch, der 6. Mai</strong></div>
+    </div>
+
+    <!-- Frage 3 -->
+    <div class="card c-blue">
+      <h3>Frage 3 – Karfreitag ist der 1. April</h3>
+      <table>
+        <tbody>
+          <tr><td>Fr. 01.04.</td><td>Karfreitag = Feiertag → kein Werktag</td></tr>
+          <tr><td>Sa. 02.04.</td><td>BGH-Urteil: kein Werktag</td></tr>
+          <tr><td>So. 03.04.</td><td>Ostersonntag → kein Werktag</td></tr>
+          <tr><td>Mo. 04.04.</td><td>Ostermontag = Feiertag → kein Werktag</td></tr>
+          <tr><td>Di. 05.04.</td><td>→ <strong>1. Werktag</strong></td></tr>
+          <tr><td>Mi. 06.04.</td><td>→ <strong>2. Werktag</strong></td></tr>
+          <tr><td>Do. 07.04.</td><td>→ <strong>3. Werktag ✓</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="answer-box"><strong>Antwort: Donnerstag, der 7. April</strong></div>
+      <div style="margin-top:.5rem; font-size:.82rem; color:#475569;">Hinweis: Karfreitag fällt immer auf Freitag → Ostersonntag = 2.4., Ostermontag = 3.4. (Hamburg: gesetzlicher Feiertag)</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ABSCHNITT 3 – Verjährung im Mietrecht
+     ══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header sec-green">
+    <div class="num">3</div>
+    Info – Verjährung im Mietrecht (Zusammenfassung Präsentation)
+  </div>
+  <div class="cards">
+
+    <div class="card c-green full">
+      <h3>Übersicht: Verjährungsfristen im Mietrecht</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Frist</th>
+            <th>Gilt für (Vermieter)</th>
+            <th>Gilt für (Mieter)</th>
+            <th>Fristbeginn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>6 Monate</strong></td>
+            <td>Ansprüche wegen Veränderung/Verschlechterung der Mietsache</td>
+            <td>Ersatz von Aufwendungen</td>
+            <td>Beginn ab Kenntnisnahme (z.B. Wohnungsübergabe)</td>
+          </tr>
+          <tr>
+            <td><strong>3 Jahre</strong> (Regelfall)</td>
+            <td>Mietforderungen, Mietkaution, Nutzungsentschädigung, Nebenkostennachforderungen</td>
+            <td>Rückzahlungsansprüche nach Mietende, Rückzahlung Mietkaution, Nebenkostenguthaben</td>
+            <td>Schluss des Jahres, in dem der Anspruch entstanden ist</td>
+          </tr>
+          <tr>
+            <td><strong>4 Jahre</strong></td>
+            <td>–</td>
+            <td>Rückzahlung erhöhter Kostenmiete</td>
+            <td>Schluss des Jahres</td>
+          </tr>
+          <tr>
+            <td><strong>10 Jahre</strong></td>
+            <td colspan="2">Ersatzansprüche gegen Mieter, wenn Vermieter keine Kenntnis erlangt hat</td>
+            <td>Ab Entstehung des Anspruchs</td>
+          </tr>
+          <tr>
+            <td><strong>30 Jahre</strong></td>
+            <td colspan="2">Titulierte Ansprüche (gerichtlich festgestellt) + Herausgabeansprüche aus Eigentum, Nießbrauch, Erbbaurecht</td>
+            <td>Ab Rechtskraft des Titels</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card c-green">
+      <h3>Hemmung der Verjährung</h3>
+      <p>Die Hemmung bewirkt einen <strong>Stillstand</strong> des Fristablaufs. Nach Wegfall des Hemmnisses <em>läuft</em> die Frist weiter (kein Neustart!).</p>
+      <ul style="margin-top:.6rem;">
+        <li>Ernsthafte Verhandlungen über den Anspruch</li>
+        <li>Leistungs- oder Feststellungsklage</li>
+        <li>Zustellung eines Mahnbescheids</li>
+        <li>Güteantrag bei einer Gütestelle</li>
+      </ul>
+    </div>
+
+    <div class="card c-green">
+      <h3>Neubeginn der Verjährung</h3>
+      <p>Im Gegensatz zur Hemmung beginnt beim <strong>Neubeginn</strong> die gesamte Verjährungsfrist von vorne zu laufen.</p>
+      <ul style="margin-top:.6rem;">
+        <li>Anerkenntnis des Schuldners (z.B. Ratenzahlungsvereinbarung)</li>
+        <li>Vornahme oder Beantragung einer Vollstreckungshandlung</li>
+      </ul>
+      <div class="merke">Hemmung = Pause. Neubeginn = Reset.</div>
+    </div>
+
+    <div class="card c-gray">
+      <h3>Wichtige Paragraphen</h3>
+      <ul>
+        <li><span class="paragraph-ref">§ 556b BGB</span> Fälligkeit der Miete (3. Werktag)</li>
+        <li><span class="paragraph-ref">§ 286 BGB</span> Schuldnerverzug (Verzug ohne Mahnung bei kalendermäßiger Fälligkeit)</li>
+        <li><span class="paragraph-ref">§ 195 BGB</span> Regelmäßige Verjährungsfrist (3 Jahre)</li>
+        <li><span class="paragraph-ref">§ 199 BGB</span> Beginn der Verjährungsfrist</li>
+        <li><span class="paragraph-ref">§ 548 BGB</span> Verjährung von Ersatzansprüchen (6 Monate)</li>
+        <li><span class="paragraph-ref">§ 543 BGB</span> Außerordentliche Kündigung (u.a. wegen Zahlungsverzug)</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<div class="disclaimer">
+  Alle Angaben ohne Gewähr – Lösungen wurden nach bestem Wissen auf Grundlage der Unterrichtsmaterialien erstellt.<br>
+  Für rechtssichere Auskünfte ist juristischer Rat einzuholen.
+</div>
+
+</body>
+</html>

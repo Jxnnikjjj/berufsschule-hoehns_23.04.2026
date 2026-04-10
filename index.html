@@ -112,13 +112,17 @@
     .thema-header h2 { font-size: 1.2rem; }
     .thema-header .gesetz { font-size: 0.8rem; font-weight: 400; opacity: 0.7; margin-left: 0.5rem; }
 
-    .color-blau  { color: #1d4ed8; }
-    .color-gruen { color: #15803d; }
-    .color-lila  { color: #6d28d9; }
+    .color-blau   { color: #1d4ed8; }
+    .color-gruen  { color: #15803d; }
+    .color-lila   { color: #6d28d9; }
+    .color-orange { color: #c2410c; }
 
-    .bg-blau  { background: #1d4ed8; }
-    .bg-gruen { background: #15803d; }
-    .bg-lila  { background: #6d28d9; }
+    .bg-blau   { background: #1d4ed8; }
+    .bg-gruen  { background: #15803d; }
+    .bg-lila   { background: #6d28d9; }
+    .bg-orange { background: #c2410c; }
+
+    .dot-orange { background: #c2410c; }
 
     /* ── KARTEN GRID ── */
     .grid {
@@ -276,7 +280,7 @@
   <div>
     <h1>Klausur-Lernzettel</h1>
     <p>Lehrer: Höhns &nbsp;|&nbsp; Immobilienwirtschaft &nbsp;|&nbsp; Lernfelder 4/5</p>
-    <p style="margin-top:0.5rem; font-size:0.8rem; opacity:0.65;">Stand: 10.04.2026 &nbsp;|&nbsp; Automatisch aktualisiert</p>
+    <p style="margin-top:0.5rem; font-size:0.8rem; opacity:0.65;">Stand: 10.04.2026 · Themen 1–4 &nbsp;|&nbsp; Automatisch aktualisiert</p>
   </div>
   <div class="klausur-badge">
     <strong>23. April 2026</strong>
@@ -293,6 +297,7 @@
     <a href="#thema1" class="toc-item"><span class="dot dot-blau"></span>1 – Wohnflächenverordnung</a>
     <a href="#thema2" class="toc-item"><span class="dot dot-gruen"></span>2 – Mietpreisrecht</a>
     <a href="#thema3" class="toc-item"><span class="dot dot-lila"></span>3 – Mietstruktur &amp; Betriebskosten</a>
+    <a href="#thema4" class="toc-item"><span class="dot dot-orange"></span>4 – Fälligkeit der Miete &amp; Verjährung</a>
   </div>
 </div>
 
@@ -794,9 +799,166 @@
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════
+     THEMA 4 – FÄLLIGKEIT DER MIETE & VERJÄHRUNG
+     ═══════════════════════════════════════════════════════ -->
+<div class="thema" id="thema4">
+  <div class="thema-header color-orange">
+    <div class="thema-nr bg-orange">4</div>
+    <h2>Fälligkeit der Miete &amp; Verjährung <span class="gesetz">§ 556b BGB · § 286 BGB · § 195/548 BGB</span></h2>
+  </div>
+  <div class="grid">
+
+    <!-- Schickschuld vs. Bringschuld -->
+    <div class="card full" style="border-top-color:#c2410c;">
+      <h3><span class="pill bg-orange">§ 556b BGB</span> Schickschuld vs. Bringschuld</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Merkmal</th>
+            <th style="background:#fff3e0">Schickschuld (aktuell gültig)</th>
+            <th style="background:#f0fdf4">Bringschuld (vor BGH 05.10.2016)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Was muss am 3. Werktag erfolgen?</td>
+            <td style="background:#fff3e0"><strong>Abbuchung vom Konto des Mieters</strong> (Absendung)</td>
+            <td style="background:#f0fdf4"><strong>Eingang auf dem Konto des Vermieters</strong></td>
+          </tr>
+          <tr>
+            <td>Wer trägt das Überweisungsrisiko?</td>
+            <td style="background:#fff3e0">Vermieter (Verzögerung durch Bank)</td>
+            <td style="background:#f0fdf4">Mieter (musste früher überweisen)</td>
+          </tr>
+          <tr>
+            <td>Zahlungsverzug</td>
+            <td style="background:#fff3e0">Ab dem 4. Werktag (wenn Abbuchung ausgeblieben)</td>
+            <td style="background:#f0fdf4">Ab dem 4. Werktag (wenn Eingang ausgeblieben)</td>
+          </tr>
+          <tr>
+            <td>Problem für Vermieter</td>
+            <td style="background:#fff3e0">Kann Verzug erst nach 1–3 Tagen feststellen (Geld noch unterwegs)</td>
+            <td style="background:#f0fdf4">Sofort erkennbar am 3. Werktag → klare Rechtssicherheit</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:0.8rem; padding:0.6rem 0.9rem; background:#fff7ed; border-left:4px solid #fb923c; border-radius:0 6px 6px 0; font-size:0.85rem; color:#7c2d12;">
+        <strong>BGH-Urteil 05.10.2016:</strong> Eine Klausel, die den Eingang beim Vermieter verlangt (Bringschuld), ist eine unangemessene Benachteiligung des Mieters und unwirksam. Es gilt seither die gesetzliche Schickschuld.
+      </div>
+    </div>
+
+    <!-- 3. Werktag – Berechnung -->
+    <div class="card" style="border-top-color:#c2410c;">
+      <h3><span class="pill bg-orange">Wichtig</span> Werktag-Berechnung</h3>
+      <ul>
+        <li>✅ Werktage = <strong>Montag bis Freitag</strong> (ohne Feiertage)</li>
+        <li>❌ <strong>Samstag zählt NICHT</strong> (BGH-Urteil – keine Bank-Bearbeitung)</li>
+        <li>❌ Sonn- und Feiertage zählen nicht</li>
+        <li>⚠ Bei Feiertag am Monatsanfang verschieben sich alle Fristen!</li>
+      </ul>
+      <div style="margin-top:0.7rem; background:#fff7ed; border-radius:6px; padding:0.6rem 0.9rem; font-size:0.85rem;">
+        <strong>Beispiel Oktober (3.10. = Feiertag + 4.10. = Sa + 5.10. = So):</strong><br>
+        → 3. Werktag erst am <strong>Montag, 6. Oktober</strong>
+      </div>
+    </div>
+
+    <!-- Zahlungsverzug -->
+    <div class="card" style="border-top-color:#c2410c;">
+      <h3><span class="pill bg-orange">§ 286 BGB</span> Zahlungsverzug – ohne Mahnung!</h3>
+      <ul>
+        <li>Der Mieter kommt <strong>ohne Mahnung</strong> in Verzug</li>
+        <li>Fälligkeit ist kalendarisch bestimmt (3. Werktag)</li>
+        <li>Verzug beginnt ab dem <strong>4. Werktag</strong></li>
+        <li>Konsequenzen: Verzugszinsen, ggf. Kündigung (§§ 543, 569 BGB)</li>
+      </ul>
+      <table style="margin-top:0.7rem;">
+        <thead><tr><th>Monat (2025/26)</th><th>3. Werktag</th><th>Verzug ab</th></tr></thead>
+        <tbody>
+          <tr><td>Oktober 2025</td><td>Mo. 06.10.</td><td>Di. 07.10.</td></tr>
+          <tr><td>November 2025</td><td>Mi. 05.11.</td><td>Do. 06.11.</td></tr>
+          <tr><td>Dezember 2025</td><td>Mi. 03.12.</td><td>Do. 04.12.</td></tr>
+          <tr><td>Januar 2026</td><td>Di. 06.01.</td><td>Mi. 07.01.</td></tr>
+          <tr><td>Februar 2026</td><td>Mi. 04.02.</td><td>Do. 05.02.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Verjährung -->
+    <div class="card full" style="border-top-color:#c2410c;">
+      <h3><span class="pill bg-orange">§§ 195/548 BGB</span> Verjährungsfristen im Mietrecht</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Frist</th>
+            <th>Ansprüche des Vermieters</th>
+            <th>Ansprüche des Mieters</th>
+            <th>Fristbeginn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>6 Monate</strong> (§ 548)</td>
+            <td>Wegen Veränderung/Verschlechterung der Mietsache</td>
+            <td>Ersatz von Aufwendungen</td>
+            <td>Ab Rückgabe der Mietsache / Kenntnisnahme</td>
+          </tr>
+          <tr>
+            <td><strong>3 Jahre</strong> (§ 195) Regelfall</td>
+            <td>Mietforderungen, Kaution, Nutzungsentschädigung, Nebenkostennachforderung</td>
+            <td>Rückzahlung Miete, Kaution, Nebenkostenguthaben</td>
+            <td>Schluss des Jahres, in dem Anspruch entstand</td>
+          </tr>
+          <tr>
+            <td><strong>4 Jahre</strong></td>
+            <td>–</td>
+            <td>Rückzahlung erhöhter Kostenmiete</td>
+            <td>Schluss des Jahres</td>
+          </tr>
+          <tr>
+            <td><strong>10 Jahre</strong></td>
+            <td colspan="2">Ersatzansprüche gegen Mieter, wenn Vermieter keine Kenntnis erlangt hat</td>
+            <td>Ab Entstehung des Anspruchs</td>
+          </tr>
+          <tr>
+            <td><strong>30 Jahre</strong></td>
+            <td colspan="2">Titulierte Ansprüche (gerichtlich festgestellt) + Herausgabeansprüche aus Eigentum/Erbbaurecht</td>
+            <td>Ab Rechtskraft des Titels</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Hemmung / Neubeginn -->
+    <div class="card" style="border-top-color:#c2410c;">
+      <h3><span class="pill bg-orange">§ 203 BGB</span> Hemmung der Verjährung</h3>
+      <p style="font-size:0.88rem; margin-bottom:0.5rem;">Hemmung = <strong>Pause</strong> im Fristablauf. Nach Wegfall des Hemmnisses läuft die Frist weiter (kein Neustart!).</p>
+      <ul>
+        <li>Ernsthafte Verhandlungen über den Anspruch</li>
+        <li>Leistungs- oder Feststellungsklage</li>
+        <li>Zustellung eines Mahnbescheids</li>
+        <li>Güteantrag bei einer Gütestelle</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-top-color:#c2410c;">
+      <h3><span class="pill bg-orange">§ 212 BGB</span> Neubeginn der Verjährung</h3>
+      <p style="font-size:0.88rem; margin-bottom:0.5rem;">Neubeginn = <strong>Reset</strong>. Die gesamte Verjährungsfrist beginnt von vorne zu laufen.</p>
+      <ul>
+        <li>Anerkenntnis des Schuldners (z.B. Ratenzahlungsvereinbarung, Abschlagszahlung)</li>
+        <li>Vornahme oder Beantragung einer Vollstreckungshandlung</li>
+      </ul>
+      <div style="margin-top:0.7rem; background:#fff7ed; border-radius:6px; padding:0.6rem 0.9rem; font-size:0.85rem; font-weight:600; color:#7c2d12;">
+        Merke: Hemmung = Pause · Neubeginn = Reset auf null
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <!-- STAND -->
 <p class="stand">
-  Lernzettel erstellt: 10.04.2026 &nbsp;|&nbsp; Klausur: 23.04.2026 &nbsp;|&nbsp; Automatisch aktualisiert durch Claude Code
+  Lernzettel erstellt: 10.04.2026 &nbsp;|&nbsp; Zuletzt aktualisiert: 10.04.2026 &nbsp;|&nbsp; Klausur: 23.04.2026 &nbsp;|&nbsp; Automatisch aktualisiert durch Claude Code
 </p>
 
 <div style="max-width:1100px; margin: 1.5rem auto 2rem; background:#f8f8f8; border: 1px solid #ddd; border-radius: 8px; padding: 0.9rem 1.2rem; font-size: 0.78rem; color: #888; text-align: center;">
