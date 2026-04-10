@@ -14,10 +14,17 @@ Wenn du in diesem Ordner arbeitest, führe automatisch folgende Prüfung durch:
 4. **Stand-Datum aktualisieren** im Header des Lernzettels.
 5. **Dem Nutzer melden**, welche neuen Themen ergänzt wurden (oder dass keine neuen gefunden wurden).
 
+### Kontext zur Klasse:
+- **Klasse:** IMK 26F1
+- **Schuljahr:** 2026/27 (Beginn Februar 2026)
+- **Bundesland:** Hamburg → Hamburger Feiertage gelten (z.B. Reformationstag 31.10., Ostermontag etc.)
+- Bei Datumsberechnungen (Werktage, Fälligkeiten): immer Hamburger Feiertage verwenden, Samstag zählt nach BGH nicht als Werktag
+
 ### Bereits behandelte Themen (Stand: 10.04.2026):
 - **Thema 1:** Wohnflächenverordnung (WoFlV) – Berechnung, Anrechnung, Abweichungen
 - **Thema 2:** Mietpreisrecht – §556d BGB (MPB), §5 WiStG, §291 StGB (Mietwucher), Sonderregelungen
 - **Thema 3:** Mietstruktur & Betriebskosten – Mietarten, BetrKV §2, Abrechnung, Pauschale vs. Vorauszahlung
+- **Thema 4:** Fälligkeit der Miete & Verjährung – §556b BGB, Schickschuld/Bringschuld, BGH-Urteil 05.10.2016, Verjährungsfristen (§§195/548 BGB)
 
 ### Deadline für Updates:
 **23.04.2026** – nach diesem Datum ist keine Aktualisierung mehr nötig.
